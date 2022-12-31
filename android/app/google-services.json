@@ -1,33 +1,91 @@
 {
   "project_info": {
-    "project_number": "710714833861",
-    "project_id": "dijo-2c385",
-    "storage_bucket": "dijo-2c385.appspot.com"
+    "project_number": "202202544303",
+    "project_id": "dijo-app-e266c",
+    "storage_bucket": "dijo-app-e266c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:710714833861:android:90d04454651c1759dda9ac",
+        "mobilesdk_app_id": "1:202202544303:android:5b88364c57788c1272bc5a",
         "android_client_info": {
-          "package_name": "com.mokwele.sellersapp"
+          "package_name": "com.mokwele.ridersapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "710714833861-smqpg19gsndve7p02rsr3vjg2a937lgo.apps.googleusercontent.com",
+          "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBFnP1TZ8eRS8Y0heYn2AwFvrOckyfoLts"
+          "current_key": "AIzaSyC-YUkkbVIkx1S8v3NXygju5BkVYRKDQak"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "710714833861-smqpg19gsndve7p02rsr3vjg2a937lgo.apps.googleusercontent.com",
+              "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202202544303:android:c2927ee105eeecc872bc5a",
+        "android_client_info": {
+          "package_name": "com.mokwele.sellersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-YUkkbVIkx1S8v3NXygju5BkVYRKDQak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202202544303:android:8afc20a5083bcad972bc5a",
+        "android_client_info": {
+          "package_name": "com.mokwele.usersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-YUkkbVIkx1S8v3NXygju5BkVYRKDQak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202202544303-s23ut0suuuet9d6h5vk7jtn536tgl474.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

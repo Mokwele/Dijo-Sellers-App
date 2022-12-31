@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -10,13 +8,17 @@ import '../uploadScreen/menus_upload_screen.dart';
 import '../widgets/info_design.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
+import '../widgets/text_widget_header.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
+
+
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -31,11 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   Colors.cyan,
                   Colors.amber,
                 ],
-                begin: FractionalOffset(0.0, 0.0),
-                end: FractionalOffset(1.0, 0.0),
+                begin:  FractionalOffset(0.0, 0.0),
+                end:  FractionalOffset(1.0, 0.0),
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
-              )),
+              )
+          ),
         ),
         title: Text(
           sharedPreferences!.getString("name")!,
@@ -45,58 +48,45 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.post_add,
-              color: Colors.cyan,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (c) => const MenusUploadScreen()));
+            icon: const Icon(Icons.post_add, color: Colors.cyan,),
+            onPressed: ()
+            {
+              Navigator.push(context, MaterialPageRoute(builder: (c)=> const MenusUploadScreen()));
             },
-          )
+          ),
         ],
       ),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: ListTile(
-              title: Text("My Menus"),
-            ),
-          ),
+          SliverPersistentHeader(pinned: true, delegate: TextWidgetHeader(title: "My Menus")),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("sellers")
                 .doc(sharedPreferences!.getString("uid"))
-                .collection("menus")
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: circularProgress(),
-                  ),
-                );
-              } else {
-                return MasonryGridView.count(
-                    scrollDirection: Axis.vertical,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 6,
-                    crossAxisCount: 2,
-                    itemCount: 10,
-                    itemBuilder: (context, index){
-                      Menus model = Menus.fromJson(
-                        snapshot.data!.docs[index].data()!
-                        as Map<String, dynamic>,
-                      );
-                      return InfoDesignWidget(
-                        model: model,
-                        context: context,
-                      );
-                    }
-                );
-              }
+                .collection("menus").snapshots(),
+            builder: (context, snapshot)
+            {
+              return !snapshot.hasData
+                  ? SliverToBoxAdapter(
+                      child: Center(child: circularProgress(),),
+                    )
+                  : SliverStaggeredGrid.countBuilder(
+                      crossAxisCount: 1,
+                      staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                      itemBuilder: (context, index)
+                      {
+                        Menus model = Menus.fromJson(
+                          snapshot.data!.docs[index].data()! as Map<String, dynamic>,
+                        );
+                        return InfoDesignWidget(
+                          model: model,
+                          context: context,
+                        );
+                      },
+                      itemCount: snapshot.data!.docs.length,
+                    );
             },
-          )
+          ),
         ],
       ),
     );

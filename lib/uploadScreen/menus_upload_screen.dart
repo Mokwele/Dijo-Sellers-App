@@ -216,7 +216,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
                 letterSpacing: 3,
               ),
             ),
-            onPressed: uploading ? null : ()=>  ValidateUploadForm(),
+            onPressed: uploading ? null : ()=>  validateUploadForm(),
 
           ),
         ],
@@ -298,8 +298,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
       imageXFile = null;
     });
   }
-  ValidateUploadForm()
-  async {
+  validateUploadForm() async
+   {
     if(imageXFile != null)
     {
       if(shortInfoController.text.isNotEmpty && titleController.text.isNotEmpty)
@@ -309,6 +309,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
         });
         //upload image
         String downloadUrl = await uploadImage(File(imageXFile!.path));
+
         //save info to firebase
         saveInfo(downloadUrl);
       }
@@ -343,16 +344,16 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
   {
     final ref = FirebaseFirestore.instance
         .collection("sellers")
-        .doc(sharedPreferences!.getString("uid"))
-        .collection("menu");
+        .doc("uid")
+        .collection("menus");
 
     ref.doc(uniqueIdName).set({
       "menuID": uniqueIdName,
-      "sellerUID" : sharedPreferences!.getString("uid"),
+      "sellerUID" : "uid",
       "menuInfo" : shortInfoController.text.toString(),
       "menuTile" : titleController.text.toString(),
       "publishedDate" : DateTime.now(),
-      "ststus": "available",
+      "status": "available",
       "thumbnailUrl": downloadUrl,
 
     });
@@ -360,7 +361,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
     clearMenuUploadForm();
 
     setState(() {
-      uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
+      uniqueIdName = "";
       uploading = false;
     });
   }
@@ -374,11 +375,15 @@ class _MenusUploadScreenState extends State<MenusUploadScreen>
 
     storageRef.UploadTask uploadTask = reference.child(uniqueIdName + ".jpg").putFile(mImageFile);
 
-    storageRef.TaskSnapshot takeSnapshot = await uploadTask.whenComplete(() => {});
+    storageRef.TaskSnapshot takeSnapshot = await uploadTask.whenComplete(() {});
+
+    String downloadURL = await takeSnapshot.ref.getDownloadURL();
+
+    return downloadURL;
   }
 
   @override
   Widget build(BuildContext context) {
-    return imageXFile == null ? defaultScreen() : menuUploadFormScreen() ;
+    return imageXFile == null ? defaultScreen() : menuUploadFormScreen();
   }
 }
