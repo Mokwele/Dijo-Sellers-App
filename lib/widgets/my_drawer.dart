@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../authentication/auth_screen.dart';
 import '../global/global.dart';
+import '../mainScreens/home_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -60,7 +61,10 @@ class MyDrawer extends StatelessWidget {
                     "Home",
                     style: TextStyle(color: Colors.black),
                   ),
-                  onTap: () {},
+                  onTap: ()
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> const HomeScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,
